@@ -26,10 +26,14 @@ func main() {
 		f.Close()
 	}(batFile)
 
-	batFile.WriteString("chcp 65001 >nul\r\n")
+	batFile.WriteString("chcp 65001 >nul\r\n") //кодировка utf-8 для cmd
+
+	// Для записи в файл в кодировке windows 1251
 	// batFile.Write(charset.Cp1251RunesToBytes([]rune("chcp 1251 >nul\n")))
 	// batFile.Write(charset.886 .Cp1251RunesToBytes([]rune("chcp 1251 >nul\n")))
+
 	for i := range cer_file {
+		// \r\n перенос строки в формате crlf
 		f := fmt.Sprintf("csptest -ipsec -reg -autocont -mycert \"./%s\"\r\n", cer_file[i])
 		// win := charset.Cp1251RunesToBytes([]rune(f))
 		fmt.Println(f)
